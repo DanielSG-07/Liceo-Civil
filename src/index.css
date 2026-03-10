@@ -1,13 +1,42 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply m-0 overflow-hidden font-sans text-white bg-magazine-dark;
+    background: radial-gradient(circle at center, #001f3f 0%, #000a12 100%);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.swiper {
+  padding-bottom: 20px !important;
+}
+
+.swiper-slide {
+  width: 380px !important;
+  height: 580px !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  flex-shrink: 0 !important;
+}
+
+@media (min-width: 768px) {
+  .swiper-slide {
+    width: 460px !important;
+    height: 640px !important;
+  }
+}
+
+.swiper-3d .swiper-slide-shadow-left,
+.swiper-3d .swiper-slide-shadow-right {
+  border-radius: 0;
+}
+
+/* Remove the dark overlay on the active center slide */
+.swiper-slide-active .swiper-slide-overlay {
+  opacity: 0 !important;
 }
