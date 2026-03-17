@@ -1,4 +1,5 @@
 {
+  "homepage": "https://DanielSG-07.github.io/Liceo-Civil",
   "name": "revista-digital",
   "version": "0.1.0",
   "private": true,
@@ -12,6 +13,7 @@
     "lucide-react": "^0.577.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
+    "react-router-dom": "^7.13.1",
     "react-scripts": "5.0.1",
     "react-tsparticles": "^2.12.2",
     "swiper": "^12.1.2",
@@ -23,7 +25,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -45,6 +49,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.27",
+    "gh-pages": "^6.3.0",
     "postcss": "^8.5.8",
     "tailwind-scrollbar-hide": "^4.0.0",
     "tailwindcss": "^3.4.19"
