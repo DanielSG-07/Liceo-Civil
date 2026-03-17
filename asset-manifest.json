@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/Liceo-Civil/static/css/main.d8321deb.css",
-    "main.js": "/Liceo-Civil/static/js/main.589ee1f0.js",
+    "main.js": "/Liceo-Civil/static/js/main.04cdaf15.js",
     "static/js/453.c8dee076.chunk.js": "/Liceo-Civil/static/js/453.c8dee076.chunk.js",
     "index.html": "/Liceo-Civil/index.html",
     "main.d8321deb.css.map": "/Liceo-Civil/static/css/main.d8321deb.css.map",
-    "main.589ee1f0.js.map": "/Liceo-Civil/static/js/main.589ee1f0.js.map",
+    "main.04cdaf15.js.map": "/Liceo-Civil/static/js/main.04cdaf15.js.map",
     "453.c8dee076.chunk.js.map": "/Liceo-Civil/static/js/453.c8dee076.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.d8321deb.css",
-    "static/js/main.589ee1f0.js"
+    "static/js/main.04cdaf15.js"
   ]
 }
