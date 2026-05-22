@@ -86,16 +86,24 @@ export default function ProjectDetail() {
                     className={`relative w-full rounded-sm overflow-hidden border border-white/10 mb-10 ${style.glow}`}
                 >
                     {/* Imagen de fondo */}
-                    <div className="relative h-48 sm:h-64 md:h-80 w-full overflow-hidden">
+                    <div className="relative h-64 sm:h-80 md:h-[26rem] w-full overflow-hidden bg-[#000a12] flex items-center justify-center">
+                        {/* Fondo desenfocado para llenar el espacio */}
+                        <img
+                            src={project.portadaURL}
+                            alt=""
+                            className="absolute inset-0 w-full h-full object-cover opacity-30 blur-xl saturate-150"
+                        />
+                        {/* Imagen real sin recortar */}
                         <img
                             src={project.portadaURL}
                             alt={project.titulo}
-                            className="w-full h-full object-cover"
+                            className="relative z-10 w-full h-full object-contain p-4"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#040814] via-[#040814]/60 to-transparent" />
+                        {/* Gradiente */}
+                        <div className="absolute inset-0 z-20 bg-gradient-to-t from-[#040814] via-[#040814]/60 to-transparent pointer-events-none" />
 
                         {/* Badge flotante */}
-                        <div className={`absolute top-4 right-4 flex items-center gap-2 px-4 py-1.5 rounded-full border text-xs font-bold tracking-widest uppercase ${style.bg} ${style.border} ${style.text}`}>
+                        <div className={`absolute z-30 top-4 right-4 flex items-center gap-2 px-4 py-1.5 rounded-full border text-xs font-bold tracking-widest uppercase ${style.bg} ${style.border} ${style.text}`}>
                             {style.icon}
                             {project.mencion}
                         </div>
@@ -122,29 +130,11 @@ export default function ProjectDetail() {
                     </div>
                 </motion.div>
 
-                {/* ─── Sección Resumen ─── */}
-                <motion.section
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.2 }}
-                    className="mb-10"
-                >
-                    <div className="flex items-center gap-3 mb-5">
-                        <div className="w-1 h-7 bg-magazine-cyan shadow-[0_0_8px_#00e5ff]" />
-                        <h2 className="text-white text-lg font-bold tracking-[0.15em] uppercase">Resumen</h2>
-                    </div>
-                    <div className="bg-gradient-to-b from-[#0b1b36]/60 to-[#040d1a]/60 border border-white/8 p-6 sm:p-8">
-                        <p className="text-gray-300 text-base sm:text-lg leading-relaxed">
-                            {project.resumen}
-                        </p>
-                    </div>
-                </motion.section>
-
                 {/* ─── Ficha técnica ─── */}
                 <motion.section
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.35 }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
                     className="mb-10"
                 >
                     <div className="flex items-center gap-3 mb-5">
@@ -172,7 +162,7 @@ export default function ProjectDetail() {
                         <div className="sm:col-span-2 border border-white/10 bg-white/3 rounded-sm p-5 flex items-start gap-4">
                             <Users size={14} className="text-magazine-cyan/60 mt-0.5 flex-shrink-0" />
                             <div>
-                                <p className="text-[10px] text-gray-500 tracking-[0.2em] uppercase font-medium mb-2">Autores</p>
+                                <p className="text-[10px] text-gray-500 tracking-[0.2em] uppercase font-medium mb-2">Integrantes</p>
                                 <div className="flex flex-wrap gap-2">
                                     {project.autores.map((autor, i) => (
                                         <span key={i} className="text-magazine-cyan/80 text-sm bg-magazine-cyan/8 border border-magazine-cyan/20 px-3 py-1 rounded-full tracking-wide">
@@ -185,25 +175,94 @@ export default function ProjectDetail() {
                     </div>
                 </motion.section>
 
-                {/* ─── CTA de descarga / PDF ─── */}
-                {project.contenidoURL && project.contenidoURL !== '#' && (
-                    <motion.div
+                {/* ─── Sección Resumen ─── */}
+                <motion.section
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.3 }}
+                    className="mb-10"
+                >
+                    <div className="flex items-center gap-3 mb-5">
+                        <div className="w-1 h-7 bg-magazine-cyan shadow-[0_0_8px_#00e5ff]" />
+                        <h2 className="text-white text-lg font-bold tracking-[0.15em] uppercase">Resumen</h2>
+                    </div>
+                    <div className="bg-gradient-to-b from-[#0b1b36]/60 to-[#040d1a]/60 border border-white/8 p-6 sm:p-8">
+                        <p className="text-gray-300 text-base sm:text-lg leading-relaxed">
+                            {project.resumen}
+                        </p>
+                    </div>
+                </motion.section>
+
+                {/* ─── Material Audiovisual (Video) ─── */}
+                {project.videoURL && (
+                    <motion.section
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.5 }}
-                        className="flex justify-center"
+                        transition={{ duration: 0.5, delay: 0.4 }}
+                        className="mb-10"
                     >
-                        <a
-                            href={project.contenidoURL}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-3 text-magazine-cyan border border-magazine-cyan/50 px-8 py-3.5 text-sm font-bold tracking-[0.2em] uppercase hover:bg-magazine-cyan/10 hover:border-magazine-cyan transition-all group"
-                        >
-                            <ExternalLink size={16} className="group-hover:translate-x-1 transition-transform" />
-                            Ver Proyecto Completo
-                        </a>
-                    </motion.div>
+                        <div className="flex items-center gap-3 mb-5">
+                            <div className="w-1 h-7 bg-magazine-cyan shadow-[0_0_8px_#00e5ff]" />
+                            <h2 className="text-white text-lg font-bold tracking-[0.15em] uppercase">Material Audiovisual</h2>
+                        </div>
+                        <div className="relative w-full aspect-video rounded-sm overflow-hidden border border-white/10 shadow-[0_0_20px_rgba(0,229,255,0.05)]">
+                            <iframe
+                                src={project.videoURL}
+                                title={`Video de ${project.titulo}`}
+                                className="w-full h-full"
+                                allowFullScreen
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            ></iframe>
+                        </div>
+                    </motion.section>
                 )}
+
+
+                {/* ─── Documentos y Anexos ─── */}
+                <motion.section
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.6 }}
+                    className="mb-10"
+                >
+                    <div className="flex items-center gap-3 mb-5">
+                        <div className="w-1 h-7 bg-magazine-cyan shadow-[0_0_8px_#00e5ff]" />
+                        <h2 className="text-white text-lg font-bold tracking-[0.15em] uppercase">Documentos y Anexos</h2>
+                    </div>
+                    <div className="flex flex-wrap gap-4">
+                        {project.documentoURL && project.documentoURL !== '#' && (
+                            <a
+                                href={project.documentoURL}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center gap-3 text-magazine-cyan border border-magazine-cyan/50 px-6 py-3.5 text-sm font-bold tracking-[0.1em] uppercase hover:bg-magazine-cyan/10 hover:border-magazine-cyan transition-all group"
+                            >
+                                <ExternalLink size={16} className="group-hover:translate-x-1 transition-transform" />
+                                Documento Principal
+                            </a>
+                        )}
+                        {project.anexos && project.anexos.map((anexo, idx) => (
+                            anexo.url && anexo.url !== '#' && (
+                                <a
+                                    key={idx}
+                                    href={anexo.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center gap-3 text-gray-300 border border-gray-600 px-6 py-3.5 text-sm font-bold tracking-[0.1em] uppercase hover:bg-white/5 hover:text-white transition-all group"
+                                >
+                                    <ExternalLink size={16} className="group-hover:translate-x-1 transition-transform" />
+                                    {anexo.titulo}
+                                </a>
+                            )
+                        ))}
+
+                        {(!project.documentoURL || project.documentoURL === '#') && (!project.anexos || project.anexos.length === 0 || project.anexos.every(a => !a.url || a.url === '#')) && (
+                            <div className="w-full border border-white/5 bg-white/3 rounded-sm p-5 text-center">
+                                <p className="text-gray-500 text-sm tracking-wider uppercase">Documentos en proceso de digitalización</p>
+                            </div>
+                        )}
+                    </div>
+                </motion.section>
 
                 {/* ─── Link de regreso a la lista ─── */}
                 <div className="mt-14 pt-8 border-t border-white/8 flex justify-center">

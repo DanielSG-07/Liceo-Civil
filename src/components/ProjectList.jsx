@@ -56,11 +56,18 @@ function ProjectCard({ project, index }) {
             className={`relative flex flex-col bg-gradient-to-b from-[#0b1b36] to-[#040d1a] border border-white/10 rounded-sm overflow-hidden group hover:border-magazine-cyan/40 transition-all duration-400 ${style.glow}`}
         >
             {/* Portada */}
-            <div className="relative w-full h-48 overflow-hidden">
+            <div className="relative w-full h-48 overflow-hidden bg-[#000a12] flex items-center justify-center">
+                {/* Fondo desenfocado */}
                 <img
-                    src={project.portadaURL}
+                    src={project.caratulaURL || project.portadaURL}
+                    alt=""
+                    className="absolute inset-0 w-full h-full object-cover opacity-40 blur-md saturate-150 group-hover:opacity-60 transition-opacity duration-500"
+                />
+                {/* Imagen real sin recortar */}
+                <img
+                    src={project.caratulaURL || project.portadaURL}
                     alt={project.titulo}
-                    className="w-full h-full object-cover opacity-70 group-hover:opacity-90 group-hover:scale-105 transition-all duration-500"
+                    className="relative z-10 w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-500"
                 />
                 {/* Gradiente sobre la imagen */}
                 <div className="absolute inset-0 bg-gradient-to-t from-[#040d1a] via-transparent to-black/30" />
@@ -148,7 +155,7 @@ export default function ProjectList() {
                     <EmptyState />
                 ) : (
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {projectsData.map((project, index) => (
+                        {projectsData.filter(p => p.id !== 1).map((project, index) => (
                             <ProjectCard key={project.id} project={project} index={index} />
                         ))}
                     </div>
