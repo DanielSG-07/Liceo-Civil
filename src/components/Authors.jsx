@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import Navbar from './Navbar';
 import Particles from "react-tsparticles";
 import { loadSlim } from "tsparticles-slim";
 import projectsData from '../data/projectsData';
-import { Users, Calendar, ExternalLink, BookOpen, FlaskConical, User } from 'lucide-react';
+import { Document, Page } from 'react-pdf';
+import { GlobalWorkerOptions } from 'pdfjs-dist/build/pdf.mjs';
+import { Users, Calendar, ExternalLink, BookOpen, FlaskConical, User, X } from 'lucide-react';
+
+GlobalWorkerOptions.workerSrc = new URL('pdfjs-dist/build/pdf.worker.min.mjs', import.meta.url).toString();
+GlobalWorkerOptions.disableFontFace = true;
 
 // Datos de los autores (Se mantiene idéntico)
 const authorsData = [
@@ -13,42 +18,42 @@ const authorsData = [
         name: 'Ortiz Zambrano Maryori Yaquelin',
         role: 'Estudiante',
         bio: 'Frase/Mensaje personal',
-        image: 'https://images.unsplash.com/photo-1740252117044-2af197eea287?q=80&w=880&auto=format&fit=crop'
+        image: process.env.PUBLIC_URL + '/Autores/Maryori.jpeg'
     },
     {
         id: 2,
         name: 'Perez Garcia Jismalkar Gabriela',
         role: 'Estudiante',
         bio: 'Frase/Mensaje personal',
-        image: 'https://images.unsplash.com/photo-1740252117044-2af197eea287?q=80&w=880&auto=format&fit=crop'
+        image: process.env.PUBLIC_URL + '/Autores/Jismalkar.jpeg'
     },
     {
         id: 3,
         name: 'Zambrano Perez Jenica Milagros',
         role: 'Estudiante',
         bio: 'Frase/Mensaje personal',
-        image: 'https://images.unsplash.com/photo-1740252117044-2af197eea287?q=80&w=880&auto=format&fit=crop'
+        image: process.env.PUBLIC_URL + '/Autores/Jenica.jpeg'
     },
     {
         id: 4,
         name: 'Dayner Leandro Mosquera Calixto',
         role: 'Estudiante',
         bio: 'Frase/Mensaje personal',
-        image: 'https://images.unsplash.com/photo-1740252117044-2af197eea287?q=80&w=880&auto=format&fit=crop'
+        image: process.env.PUBLIC_URL + '/Autores/Dayner.jpeg'
     },
     {
         id: 5,
         name: 'Romer Santiago Montilva Guerrero',
         role: 'Estudiante',
         bio: 'Frase/Mensaje personal',
-        image: 'https://images.unsplash.com/photo-1740252117044-2af197eea287?q=80&w=880&auto=format&fit=crop'
+        image: process.env.PUBLIC_URL + '/Autores/Romer.jpeg'
     },
     {
         id: 6,
         name: 'Ender Javier Franco Sanchez',
         role: 'Estudiante',
         bio: 'Frase/Mensaje personal',
-        image: 'https://images.unsplash.com/photo-1740252117044-2af197eea287?q=80&w=880&auto=format&fit=crop'
+        image: process.env.PUBLIC_URL + '/Autores/Ender.jpeg'
     },
     {
         id: 7,
@@ -114,8 +119,41 @@ export default function Authors() {
         detectRetina: true,
     };
 
+    const [activeAuthor, setActiveAuthor] = useState(null);
+    const [showModal, setShowModal] = useState(false);
+    const [numPages, setNumPages] = useState(null);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [pageWidth, setPageWidth] = useState(0);
+    const modalRef = useRef(null);
     const project = projectsData && projectsData.length ? projectsData[0] : null;
     const style = (project && menciones[project.mencion]) ? menciones[project.mencion] : menciones['Ciencias'];
+
+    const documentoViewURL = project?.documentoURL && project.documentoURL !== '#'
+        ? project.documentoURL
+        : null;
+
+    const onDocumentLoadSuccess = ({ numPages }) => {
+        setNumPages(numPages);
+        setCurrentPage(1);
+    };
+
+    const openDocumentModal = () => setShowModal(true);
+    const closeDocumentModal = () => setShowModal(false);
+    const goToPreviousPage = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
+    const goToNextPage = () => setCurrentPage((prev) => Math.min(prev + 1, numPages || prev));
+
+    useEffect(() => {
+        if (!showModal || !modalRef.current) return;
+
+        const updateWidth = () => {
+            const width = modalRef.current.clientWidth - 48;
+            setPageWidth(Math.max(400, Math.min(width, 980)));
+        };
+
+        updateWidth();
+        window.addEventListener('resize', updateWidth);
+        return () => window.removeEventListener('resize', updateWidth);
+    }, [showModal]);
 
     return (
         <div className="relative min-h-screen bg-[#040814] font-sans flex flex-col overflow-x-hidden antialiased selection:bg-cyan-500/30 selection:text-cyan-200">
@@ -246,10 +284,10 @@ export default function Authors() {
                                 </div>
                                 <div className="flex flex-col gap-3">
                                     {project.documentoURL && project.documentoURL !== '#' && (
-                                        <a href={project.documentoURL} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between bg-cyan-500/5 text-cyan-400 border border-cyan-500/20 px-4 py-3 rounded-lg text-xs font-bold tracking-wider uppercase hover:bg-cyan-500/10 hover:border-cyan-500/40 transition-all group">
-                                            <span className="flex items-center gap-2.5"><ExternalLink size={14} /> Documento Principal</span>
+                                        <button type="button" onClick={openDocumentModal} className="flex items-center justify-between bg-cyan-500/5 text-cyan-400 border border-cyan-500/20 px-4 py-3 rounded-lg text-xs font-bold tracking-wider uppercase hover:bg-cyan-500/10 hover:border-cyan-500/40 transition-all group">
+                                            <span className="flex items-center gap-2.5"><ExternalLink size={14} /> Ver Documento</span>
                                             <span className="text-[10px] opacity-60">PDF</span>
-                                        </a>
+                                        </button>
                                     )}
                                     {project.anexos && project.anexos.map((anexo, idx) => (
                                         anexo.url && anexo.url !== '#' && (
@@ -298,9 +336,22 @@ export default function Authors() {
                                 className={`group relative flex items-center gap-5 bg-[#060d22]/40 border border-white/5 rounded-xl p-4 transition-all duration-300 ${style.hover}`}>
                                 
                                 {/* Avatar circular con borde estilizado */}
-                                <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden flex-shrink-0 border-2 border-white/5 group-hover:border-cyan-500/30 transition-colors bg-slate-900 flex items-center justify-center">
+                                <div
+                                    className="relative w-16 h-16 sm:w-20 sm:h-20 min-w-[64px] min-h-[64px] rounded-full overflow-hidden flex-shrink-0 border-2 border-white/5 group-hover:border-cyan-500/30 transition-all duration-300 bg-slate-900 flex items-center justify-center"
+                                    style={{
+                                        transform: activeAuthor === author.id ? 'scale(4)' : 'scale(1)',
+                                        zIndex: activeAuthor === author.id ? 10 : 'auto',
+                                        boxShadow: activeAuthor === author.id ? '0 0 35px rgba(0,229,255,0.35)' : 'none',
+                                    }}
+                                    onMouseDown={() => setActiveAuthor(author.id)}
+                                    onMouseUp={() => setActiveAuthor(null)}
+                                    onMouseLeave={() => setActiveAuthor(null)}
+                                    onTouchStart={() => setActiveAuthor(author.id)}
+                                    onTouchEnd={() => setActiveAuthor(null)}
+                                    onTouchCancel={() => setActiveAuthor(null)}
+                                >
                                     {author.image ? (
-                                        <img src={author.image} alt={author.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                                        <img src={author.image} alt={author.name} className="w-full h-full object-cover object-center transition-transform duration-300" />
                                     ) : (
                                         <User className="text-white/20" size={24} />
                                     )}
@@ -322,6 +373,74 @@ export default function Authors() {
                         ))}
                     </div>
                 </div>
+
+                {showModal && documentoViewURL && (
+                    <div
+                        className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4"
+                        onContextMenu={(e) => e.preventDefault()}
+                        onCopy={(e) => e.preventDefault()}
+                        onCut={(e) => e.preventDefault()}
+                        onPaste={(e) => e.preventDefault()}
+                    >
+                        <div ref={modalRef} className="relative w-full max-w-5xl h-[85vh] bg-[#071019] border border-white/10 rounded-2xl overflow-hidden shadow-[0_0_40px_rgba(0,229,255,0.25)]">
+                            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between px-5 py-4 gap-4 border-b border-white/10 bg-[#08111e]/90">
+                                <div>
+                                    <p className="text-white text-sm uppercase tracking-[0.2em] font-bold">Documento protegido</p>
+                                    <p className="text-gray-400 text-xs mt-1">Copiar, pegar y capturas de pantalla están deshabilitados para mayor seguridad.</p>
+                                </div>
+                                <button
+                                    type="button"
+                                    onClick={closeDocumentModal}
+                                    className="text-gray-300 hover:text-white p-2 rounded-full transition-colors"
+                                    aria-label="Cerrar visor de documento"
+                                >
+                                    <X size={20} />
+                                </button>
+                            </div>
+                            <div className="relative h-full bg-black select-none" onContextMenu={(e) => e.preventDefault()}>
+                                <div className="absolute inset-x-0 top-0 z-20 flex flex-wrap items-center justify-between gap-3 bg-black/90 px-6 py-3">
+                                    <div className="flex items-center gap-2">
+                                        <button
+                                            type="button"
+                                            onClick={goToPreviousPage}
+                                            disabled={currentPage <= 1}
+                                            className="rounded-full border border-white/10 bg-white/5 px-3 py-2 text-xs uppercase tracking-[0.2em] text-white/80 disabled:opacity-40"
+                                        >Anterior</button>
+                                        <button
+                                            type="button"
+                                            onClick={goToNextPage}
+                                            disabled={numPages ? currentPage >= numPages : true}
+                                            className="rounded-full border border-white/10 bg-white/5 px-3 py-2 text-xs uppercase tracking-[0.2em] text-white/80 disabled:opacity-40"
+                                        >Siguiente</button>
+                                    </div>
+                                    <span className="text-white/70 text-xs uppercase tracking-[0.2em]">
+                                        Página {currentPage} / {numPages || '-'}
+                                    </span>
+                                </div>
+                                <div className="absolute inset-0 overflow-auto pt-16 p-6" style={{ userSelect: 'none' }}>
+                                    <div className="max-w-full mx-auto" style={{ width: pageWidth || '100%' }}>
+                                        <Document
+                                            file={documentoViewURL}
+                                            onLoadSuccess={onDocumentLoadSuccess}
+                                            className="w-full h-full"
+                                        >
+                                            <Page
+                                                pageNumber={currentPage}
+                                                renderTextLayer={false}
+                                                renderAnnotationLayer={false}
+                                                className="mx-auto"
+                                                width={pageWidth || 800}
+                                            />
+                                        </Document>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="absolute bottom-4 left-4 right-4 text-center text-[11px] text-gray-500 uppercase tracking-[0.2em]">
+                                La selección de texto y los enlaces están desactivados para proteger el contenido del documento.
+                            </div>
+                        </div>
+                    </div>
+                )}
 
             </main>
         </div>

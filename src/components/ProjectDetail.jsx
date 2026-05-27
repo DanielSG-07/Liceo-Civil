@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Users, Calendar, FlaskConical, BookOpen, ExternalLink } from 'lucide-react';
+import { ArrowLeft, Users, Calendar, FlaskConical, BookOpen, ExternalLink, X } from 'lucide-react';
+import { Document, Page } from 'react-pdf';
+import { GlobalWorkerOptions } from 'pdfjs-dist/build/pdf.mjs';
 import Navbar from './Navbar';
 import projectsData from '../data/projectsData';
+
+GlobalWorkerOptions.workerSrc = new URL('pdfjs-dist/build/pdf.worker.min.mjs', import.meta.url).toString();
+GlobalWorkerOptions.disableFontFace = true;
 
 const menciones = {
     Ciencias: {
@@ -27,7 +32,39 @@ const menciones = {
 export default function ProjectDetail() {
     const { id } = useParams();
     const navigate = useNavigate();
+    const [showModal, setShowModal] = useState(false);
+    const [numPages, setNumPages] = useState(null);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [pageWidth, setPageWidth] = useState(0);
+    const modalRef = useRef(null);
     const project = projectsData.find((p) => p.id === parseInt(id));
+
+    const documentoViewURL = project?.documentoURL && project.documentoURL !== '#'
+        ? project.documentoURL
+        : null;
+
+    const onDocumentLoadSuccess = ({ numPages }) => {
+        setNumPages(numPages);
+        setCurrentPage(1);
+    };
+
+    const openDocumentModal = () => setShowModal(true);
+    const closeDocumentModal = () => setShowModal(false);
+    const goToPreviousPage = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
+    const goToNextPage = () => setCurrentPage((prev) => Math.min(prev + 1, numPages || prev));
+
+    useEffect(() => {
+        if (!showModal || !modalRef.current) return;
+
+        const updateWidth = () => {
+            const width = modalRef.current.clientWidth - 48;
+            setPageWidth(Math.max(400, Math.min(width, 980)));
+        };
+
+        updateWidth();
+        window.addEventListener('resize', updateWidth);
+        return () => window.removeEventListener('resize', updateWidth);
+    }, [showModal]);
 
     // Proyecto no encontrado
     if (!project) {
@@ -231,15 +268,14 @@ export default function ProjectDetail() {
                     </div>
                     <div className="flex flex-wrap gap-4">
                         {project.documentoURL && project.documentoURL !== '#' && (
-                            <a
-                                href={project.documentoURL}
-                                target="_blank"
-                                rel="noopener noreferrer"
+                            <button
+                                type="button"
+                                onClick={openDocumentModal}
                                 className="flex items-center gap-3 text-magazine-cyan border border-magazine-cyan/50 px-6 py-3.5 text-sm font-bold tracking-[0.1em] uppercase hover:bg-magazine-cyan/10 hover:border-magazine-cyan transition-all group"
                             >
                                 <ExternalLink size={16} className="group-hover:translate-x-1 transition-transform" />
-                                Documento Principal
-                            </a>
+                                Ver Documento
+                            </button>
                         )}
                         {project.anexos && project.anexos.map((anexo, idx) => (
                             anexo.url && anexo.url !== '#' && (
@@ -264,6 +300,74 @@ export default function ProjectDetail() {
                     </div>
                 </motion.section>
 
+                {/* ─── Modal de documento protegido ─── */}
+                {showModal && documentoViewURL && (
+                    <div
+                        className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4"
+                        onContextMenu={(e) => e.preventDefault()}
+                        onCopy={(e) => e.preventDefault()}
+                        onCut={(e) => e.preventDefault()}
+                        onPaste={(e) => e.preventDefault()}
+                    >
+                        <div ref={modalRef} className="relative w-full max-w-5xl h-[85vh] bg-[#071019] border border-white/10 rounded-2xl overflow-hidden shadow-[0_0_40px_rgba(0,229,255,0.25)]">
+                            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between px-5 py-4 gap-4 border-b border-white/10 bg-[#08111e]/90">
+                                <div>
+                                    <p className="text-white text-sm uppercase tracking-[0.2em] font-bold">Documento protegido</p>
+                                    <p className="text-gray-400 text-xs mt-1">Copiar, pegar, descargar y capturas de pantalla no están permitidas.</p>
+                                </div>
+                                <button
+                                    type="button"
+                                    onClick={closeDocumentModal}
+                                    className="text-gray-300 hover:text-white p-2 rounded-full transition-colors"
+                                    aria-label="Cerrar visor de documento"
+                                >
+                                    <X size={20} />
+                                </button>
+                            </div>
+                            <div className="relative h-full bg-black select-none" onContextMenu={(e) => e.preventDefault()}>
+                                <div className="absolute inset-x-0 top-0 z-20 flex flex-wrap items-center justify-between gap-3 bg-black/90 px-6 py-3">
+                                    <div className="flex items-center gap-2">
+                                        <button
+                                            type="button"
+                                            onClick={goToPreviousPage}
+                                            disabled={currentPage <= 1}
+                                            className="rounded-full border border-white/10 bg-white/5 px-3 py-2 text-xs uppercase tracking-[0.2em] text-white/80 disabled:opacity-40"
+                                        >Anterior</button>
+                                        <button
+                                            type="button"
+                                            onClick={goToNextPage}
+                                            disabled={numPages ? currentPage >= numPages : true}
+                                            className="rounded-full border border-white/10 bg-white/5 px-3 py-2 text-xs uppercase tracking-[0.2em] text-white/80 disabled:opacity-40"
+                                        >Siguiente</button>
+                                    </div>
+                                    <span className="text-white/70 text-xs uppercase tracking-[0.2em]">
+                                        Página {currentPage} / {numPages || '-'}
+                                    </span>
+                                </div>
+                                <div className="absolute inset-0 overflow-auto pt-16 p-6" style={{ userSelect: 'none' }}>
+                                    <div className="max-w-full mx-auto" style={{ width: pageWidth || '100%' }}>
+                                        <Document
+                                            file={documentoViewURL}
+                                            onLoadSuccess={onDocumentLoadSuccess}
+                                            className="w-full h-full"
+                                        >
+                                            <Page
+                                                pageNumber={currentPage}
+                                                renderTextLayer={false}
+                                                renderAnnotationLayer={false}
+                                                className="mx-auto"
+                                                width={pageWidth || 800}
+                                            />
+                                        </Document>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="absolute bottom-4 left-4 right-4 text-center text-[11px] text-gray-500 uppercase tracking-[0.2em]">
+                               La selección de texto y los enlaces están desactivados para proteger el contenido del documento.
+                            </div>
+                        </div>
+                    </div>
+                )}
                 {/* ─── Link de regreso a la lista ─── */}
                 <div className="mt-14 pt-8 border-t border-white/8 flex justify-center">
                     <Link
