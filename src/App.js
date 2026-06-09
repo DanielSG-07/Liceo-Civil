@@ -7,7 +7,7 @@ import Authors from './components/Authors';
 
 function App() {
   return (
-    <HashRouter basename={process.env.PUBLIC_URL}>
+    <HashRouter>
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/proyectos" element={<ProjectList />} />
