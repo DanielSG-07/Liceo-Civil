@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Search, Menu, X } from 'lucide-react';
 
-export default function Navbar() {
+export default function Navbar({ searchQuery = '', onSearchChange }) {
     const location = useLocation();
     const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -37,10 +37,24 @@ export default function Navbar() {
                     <Link to="/" className={linkClass('/')}>INICIO</Link>
                     <Link to="/proyectos" className={linkClass('/proyectos')}>PROYECTOS</Link>
                     <Link to="/autores" className={linkClass('/autores')}>NUESTRO PROYECTO</Link>
-                    <button className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors border border-gray-600 rounded-full px-4 py-1.5 ml-2">
-                        <Search size={15} />
-                        <span className="text-sm font-medium tracking-wide">BUSCAR</span>
-                    </button>
+                    {onSearchChange ? (
+                        <label htmlFor="project-search" className="relative flex items-center w-72">
+                            <Search size={16} className="absolute left-3 text-gray-400" />
+                            <input
+                                id="project-search"
+                                type="search"
+                                value={searchQuery}
+                                onChange={(event) => onSearchChange(event.target.value)}
+                                placeholder="Buscar proyectos..."
+                                className="w-full pl-11 pr-4 py-2 rounded-full bg-[#020814] border border-white/10 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-magazine-cyan"
+                            />
+                        </label>
+                    ) : (
+                        <button className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors border border-gray-600 rounded-full px-4 py-1.5 ml-2">
+                            <Search size={15} />
+                            <span className="text-sm font-medium tracking-wide">BUSCAR</span>
+                        </button>
+                    )}
                 </div>
 
                 {/* Hamburguesa */}
@@ -59,10 +73,24 @@ export default function Navbar() {
                     <Link to="/" className={linkClass('/')} onClick={() => setMobileOpen(false)}>INICIO</Link>
                     <Link to="/proyectos" className={linkClass('/proyectos')} onClick={() => setMobileOpen(false)}>PROYECTOS</Link>
                     <Link to="/autores" className={linkClass('/autores')} onClick={() => setMobileOpen(false)}>NUESTRO PROYECTO</Link>
-                    <div className="flex items-center gap-2 text-gray-400 border border-gray-700 rounded-full px-4 py-2 w-fit">
-                        <Search size={14} />
-                        <span className="text-sm font-medium">BUSCAR</span>
-                    </div>
+                    {onSearchChange ? (
+                        <label htmlFor="project-search-mobile" className="flex items-center gap-2 text-gray-300 border border-gray-700 rounded-full px-4 py-2 w-full">
+                            <Search size={14} className="text-gray-400" />
+                            <input
+                                id="project-search-mobile"
+                                type="search"
+                                value={searchQuery}
+                                onChange={(event) => onSearchChange(event.target.value)}
+                                placeholder="Buscar proyectos..."
+                                className="w-full bg-transparent text-sm text-white placeholder-gray-400 focus:outline-none"
+                            />
+                        </label>
+                    ) : (
+                        <div className="flex items-center gap-2 text-gray-400 border border-gray-700 rounded-full px-4 py-2 w-fit">
+                            <Search size={14} />
+                            <span className="text-sm font-medium">BUSCAR</span>
+                        </div>
+                    )}
                 </div>
             )}
         </nav>

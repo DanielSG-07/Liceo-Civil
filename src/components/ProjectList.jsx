@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ExternalLink, Users, BookOpen, FlaskConical } from 'lucide-react';
@@ -119,14 +119,27 @@ function ProjectCard({ project, index }) {
 }
 
 export default function ProjectList() {
+    const [searchQuery, setSearchQuery] = useState('');
+    const [categoryFilter, setCategoryFilter] = useState('Todas');
     const isEmpty = projectsData.length === 0;
+
+    const categories = ['Todas', 'Ciencias', 'Humanidades', 'Tecnologia'];
+    const normalizedQuery = searchQuery.trim().toLowerCase();
+    const filteredProjects = projectsData
+        .filter((p) => p.id !== 1)
+        .filter((project) => {
+            if (categoryFilter !== 'Todas' && project.mencion !== categoryFilter) return false;
+            if (!normalizedQuery) return true;
+            const haystack = `${project.titulo} ${project.resumen} ${project.autores.join(' ')} ${project.mencion} ${project.año}`.toLowerCase();
+            return haystack.includes(normalizedQuery);
+        });
 
     return (
         <div className="relative min-h-screen bg-[#040814] font-sans flex flex-col">
             {/* Fondo con gradiente sutil */}
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(0,229,255,0.05)_0%,_transparent_60%)] pointer-events-none" />
 
-            <Navbar />
+            <Navbar searchQuery={searchQuery} onSearchChange={setSearchQuery} />
 
             <main className="relative z-10 flex-1 w-full max-w-7xl mx-auto px-6 md:px-12 pt-4 pb-20">
                 {/* Encabezado de sección */}
@@ -146,6 +159,21 @@ export default function ProjectList() {
                         Investigaciones y proyectos estudiantiles desarrollados por los alumnos del
                         <span className="text-magazine-cyan"> Liceo Ángel María Duque</span>.
                     </p>
+                    <div className="mt-6 flex flex-wrap items-center gap-3 ml-5">
+                        {categories.map((category) => {
+                            const isActive = categoryFilter === category;
+                            return (
+                                <button
+                                    key={category}
+                                    type="button"
+                                    onClick={() => setCategoryFilter(category)}
+                                    className={`rounded-full px-4 py-2 text-sm font-semibold transition ${isActive ? 'bg-magazine-cyan text-[#040814] border border-magazine-cyan' : 'bg-[#08111f] border border-white/10 text-gray-300 hover:border-magazine-cyan hover:text-white'}`}
+                                >
+                                    {category}
+                                </button>
+                            );
+                        })}
+                    </div>
                     {/* Línea separadora */}
                     <div className="mt-6 h-[1px] bg-gradient-to-r from-magazine-cyan/50 via-magazine-cyan/10 to-transparent" />
                 </motion.div>
@@ -153,9 +181,18 @@ export default function ProjectList() {
                 {/* Grid de proyectos o estado vacío */}
                 {isEmpty ? (
                     <EmptyState />
+                ) : filteredProjects.length === 0 ? (
+                    <div className="flex flex-col items-center justify-center py-24 text-center px-4 col-span-full">
+                        <h3 className="text-white text-2xl font-bold tracking-widest uppercase mb-4">
+                            No se encontraron proyectos
+                        </h3>
+                        <p className="text-gray-400 text-sm tracking-wider max-w-md">
+                            Prueba con otro término de búsqueda o revisa la ortografía.
+                        </p>
+                    </div>
                 ) : (
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {projectsData.filter(p => p.id !== 1).map((project, index) => (
+                        {filteredProjects.map((project, index) => (
                             <ProjectCard key={project.id} project={project} index={index} />
                         ))}
                     </div>

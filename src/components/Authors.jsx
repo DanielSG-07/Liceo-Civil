@@ -6,7 +6,7 @@ import { loadSlim } from "tsparticles-slim";
 import projectsData from '../data/projectsData';
 import { Document, Page } from 'react-pdf';
 import { GlobalWorkerOptions } from 'pdfjs-dist/build/pdf.mjs';
-import { Users, Calendar, ExternalLink, BookOpen, FlaskConical, User, X } from 'lucide-react';
+import { Users, Calendar, ExternalLink, BookOpen, FlaskConical, User, Play, X } from 'lucide-react';
 
 GlobalWorkerOptions.workerSrc = new URL('pdfjs-dist/build/pdf.worker.min.mjs', import.meta.url).toString();
 GlobalWorkerOptions.disableFontFace = true;
@@ -16,58 +16,58 @@ const authorsData = [
     {
         id: 1,
         name: 'Ortiz Zambrano Maryori Yaquelin',
-        role: 'Estudiante',
-        bio: 'Frase/Mensaje personal',
+        role: 'Estudiante/Investigadora',
+        bio: 'Explorando los límites de la innovación. Traduciendo café en tecnología.',
         image: process.env.PUBLIC_URL + '/Autores/Maryori.jpeg'
     },
     {
         id: 2,
         name: 'Perez Garcia Jismalkar Gabriela',
-        role: 'Estudiante',
-        bio: 'Frase/Mensaje personal',
+        role: 'Estudiante/Investigadora',
+        bio: 'Construyendo el mañana con las herramientas de hoy. Apasionado por la tecnología que transforma lo imposible en cotidiano.',
         image: process.env.PUBLIC_URL + '/Autores/Jismalkar.jpeg'
     },
     {
         id: 3,
         name: 'Zambrano Perez Jenica Milagros',
-        role: 'Estudiante',
-        bio: 'Frase/Mensaje personal',
+        role: 'Estudiante/Investigadora',
+        bio: 'En constante actualización. Conectando ideas, código y creatividad para diseñar el futuro digital.',
         image: process.env.PUBLIC_URL + '/Autores/Jenica.jpeg'
     },
     {
         id: 4,
         name: 'Dayner Leandro Mosquera Calixto',
-        role: 'Estudiante',
-        bio: 'Frase/Mensaje personal',
+        role: 'Estudiante/Investigador',
+        bio: 'Donde la estrategia humana se encuentra con la innovación tecnológica. Impulsando la transformación digital con propósito.',
         image: process.env.PUBLIC_URL + '/Autores/Dayner.jpeg'
     },
     {
         id: 5,
         name: 'Romer Santiago Montilva Guerrero',
-        role: 'Estudiante',
-        bio: 'Frase/Mensaje personal',
+        role: 'Estudiante/Investigador',
+        bio: 'Optimimizando el presente, programando el futuro. Especialista en convertir problemas complejos en soluciones tecnológicas simples.',
         image: process.env.PUBLIC_URL + '/Autores/Romer.jpeg'
     },
     {
         id: 6,
         name: 'Ender Javier Franco Sanchez',
-        role: 'Estudiante',
-        bio: 'Frase/Mensaje personal',
+        role: 'Estudiante/Investigador',
+        bio: 'La tecnología es mi lienzo y la innovación mi pincel. Creando experiencias digitales que inspiran',
         image: process.env.PUBLIC_URL + '/Autores/Ender.jpeg'
     },
     {
         id: 7,
         name: 'Cristofer Daniel Labrador Vera',
-        role: 'Estudiante',
-        bio: 'Frase/Mensaje personal',
-        image: 'https://images.unsplash.com/photo-1740252117044-2af197eea287?q=80&w=880&auto=format&fit=crop'
+        role: 'Estudiante/Investigador',
+        bio: 'Viviendo en la intersección entre la curiosidad humana y el potencial tecnológico. El futuro no se predice, se programa.',
+        image: process.env.PUBLIC_URL + '/Autores/Cristofer.jpeg'
     },
     {
         id: 8,
         name: 'Moreno Vera Benjamin Miguel',
-        role: 'Estudiante',
-        bio: 'Frase/Mensaje personal',
-        image: 'https://images.unsplash.com/photo-1740252117044-2af197eea287?q=80&w=880&auto=format&fit=crop'
+        role: 'Estudiante/Investigador',
+        bio: 'deas disruptivas, código limpio y mentalidad de futuro.',
+        image: process.env.PUBLIC_URL + '/Autores/Miguel.jpeg'
     }
 ];
 
@@ -121,11 +121,22 @@ export default function Authors() {
 
     const [activeAuthor, setActiveAuthor] = useState(null);
     const [showModal, setShowModal] = useState(false);
+    const [showVideo, setShowVideo] = useState(false);
     const [numPages, setNumPages] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const [pageWidth, setPageWidth] = useState(0);
     const modalRef = useRef(null);
     const project = projectsData && projectsData.length ? projectsData[0] : null;
+
+    const isYoutubeVideo = project?.videoURL?.includes('youtube.com') || project?.videoURL?.includes('youtu.be');
+    const getVideoSrc = (url) => {
+        if (!url) return '';
+        if (isYoutubeVideo) {
+            const params = ['rel=0', 'modestbranding=1', 'controls=1', 'autoplay=1'];
+            return url.includes('?') ? `${url}&${params.join('&')}` : `${url}?${params.join('&')}`;
+        }
+        return url;
+    };
     const style = (project && menciones[project.mencion]) ? menciones[project.mencion] : menciones['Ciencias'];
 
     const documentoViewURL = project?.documentoURL && project.documentoURL !== '#'
@@ -271,8 +282,48 @@ export default function Authors() {
                                     <h2 className="text-white text-xs font-bold tracking-[0.2em] uppercase text-gray-400">Video Defensa</h2>
                                 </div>
                                 <div className="relative w-full aspect-video rounded-lg overflow-hidden border border-white/5 bg-black shadow-lg">
-                                    <iframe src={project.videoURL} title={`Video de ${project.titulo}`} className="w-full h-full" allowFullScreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
-                                </div>
+                            {!showVideo ? (
+                                <button
+                                    type="button"
+                                    onClick={() => setShowVideo(true)}
+                                    onContextMenu={(event) => event.preventDefault()}
+                                    className="relative w-full h-full overflow-hidden"
+                                >
+                                    <img
+                                        src={project.portadaURL || project.caratulaURL}
+                                        alt={`Miniatura de ${project.titulo}`}
+                                        className="w-full h-full object-cover"
+                                    />
+                                    <div className="absolute inset-0 bg-black/40" />
+                                    <div className="absolute inset-0 flex items-center justify-center">
+                                        <div className="flex items-center justify-center w-20 h-20 rounded-full bg-white/10 border border-white/30 transition hover:bg-white/20">
+                                            <Play size={28} className="text-white" />
+                                        </div>
+                                    </div>
+                                </button>
+                            ) : isYoutubeVideo ? (
+                                <iframe
+                                    src={getVideoSrc(project.videoURL)}
+                                    title={`Video de ${project.titulo}`}
+                                    className="w-full h-full"
+                                    allowFullScreen
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                ></iframe>
+                            ) : (
+                                <video
+                                    src={getVideoSrc(project.videoURL)}
+                                    controls
+                                    autoPlay
+                                    playsInline
+                                    controlsList="nodownload nofullscreen noremoteplayback"
+                                    disablePictureInPicture
+                                    disableRemotePlayback
+                                    className="w-full h-full bg-black"
+                                    poster={project.portadaURL || project.caratulaURL}
+                                    onContextMenu={(event) => event.preventDefault()}
+                                />
+                            )}
+                        </div>
                             </motion.section>
                         )}
 

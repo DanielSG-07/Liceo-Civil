@@ -35,7 +35,7 @@ const projectsData = [
     año: 2026,
     portadaURL: process.env.PUBLIC_URL + "/Portadas/ID1.png",
     caratulaURL: process.env.PUBLIC_URL + "/Portadas/ID1.png",
-    videoURL: "https://www.youtube.com/embed/PGIFXHmw_js",
+    videoURL: process.env.PUBLIC_URL + "/Videos/V_ID01.mp4",
     documentoURL: process.env.PUBLIC_URL + "/Proyectos/ProyectoID1.pdf",
     anexos: [{ titulo: "Tablas de Muestreo", url: "#" }]
   },
@@ -48,8 +48,9 @@ const projectsData = [
     año: 2026,
     caratulaURL: process.env.PUBLIC_URL + "/Caratulas/C_ID2.png",
     portadaURL: process.env.PUBLIC_URL + "/Portadas/ID2.jpg",
-    videoURL: "https://www.youtube.com/embed/PGIFXHmw_js",
+    videoURL: process.env.PUBLIC_URL + "/Videos/V_ID02.mp4",
     documentoURL: process.env.PUBLIC_URL + "/Proyectos/ProyectoID2.pdf",
+    anexos: [{ titulo: "Tablas de Muestreo", url: "#" }]
   },
   {
     id: 3,
@@ -60,7 +61,7 @@ const projectsData = [
     año: 2026,
     caratulaURL: process.env.PUBLIC_URL + "/Caratulas/C_ID3.png",
     portadaURL: process.env.PUBLIC_URL + "/Portadas/ID3.png",
-    videoURL: "https://www.youtube.com/embed/PGIFXHmw_js",
+    videoURL: process.env.PUBLIC_URL + "/Videos/V_ID03.mp4",
     documentoURL: process.env.PUBLIC_URL + "/Proyectos/ProyectoID3.pdf",
     anexos: [{ titulo: "Tablas de Muestreo", url: "#" }]
   },
@@ -73,7 +74,7 @@ const projectsData = [
     año: 2026,
     caratulaURL: process.env.PUBLIC_URL + "/Caratulas/C_ID4.png",
     portadaURL: process.env.PUBLIC_URL + "/Portadas/ID4.png",
-    videoURL: "https://www.youtube.com/embed/PGIFXHmw_js",
+    videoURL: "",
     documentoURL: process.env.PUBLIC_URL + "/Proyectos/ProyectoID4.pdf",
     anexos: [{ titulo: "Tablas de Muestreo", url: "#" }]
   },
@@ -86,7 +87,7 @@ const projectsData = [
     año: 2026,
     caratulaURL: process.env.PUBLIC_URL + "/Caratulas/C_ID5.png",
     portadaURL: process.env.PUBLIC_URL + "/Portadas/ID5.png",
-    videoURL: "https://www.youtube.com/embed/PGIFXHmw_js",
+    videoURL: process.env.PUBLIC_URL + "/Videos/V_ID05.mp4",
     documentoURL: process.env.PUBLIC_URL + "/Proyectos/ProyectoID5.pdf",
     anexos: [{ titulo: "Tablas de Muestreo", url: "#" }]
   },
@@ -99,7 +100,7 @@ const projectsData = [
     año: 2026,
     caratulaURL: process.env.PUBLIC_URL + "/Caratulas/C_ID6.png",
     portadaURL: process.env.PUBLIC_URL + "/Portadas/ID6.png",
-    videoURL: "https://www.youtube.com/embed/PGIFXHmw_js",
+    videoURL: process.env.PUBLIC_URL + "/Videos/V_ID06.mp4",
     documentoURL: "process.env.PUBLIC_URL + /Proyectos/ProyectoID6.pdf",
     anexos: [{ titulo: "Tablas de Muestreo", url: "#" }]
   },
@@ -112,34 +113,34 @@ const projectsData = [
     año: 2026,
     caratulaURL: process.env.PUBLIC_URL + "/Caratulas/C_ID7.png",
     portadaURL: process.env.PUBLIC_URL + "/Portadas/ID7.png",
-    videoURL: "https://www.youtube.com/embed/PGIFXHmw_js",
+    videoURL: process.env.PUBLIC_URL + "/Videos/V_ID07.mp4",
     documentoURL: "process.env.PUBLIC_URL + /Proyectos/ProyectoID7.pdf",
     anexos: [{ titulo: "Tablas de Muestreo", url: "#" }]
   },
   {
     id: 8,
     titulo: "Influencia de los juegos didacticos en el rendimiento escolar de los estudiantes de 1er año",
-    resumen: "Pendiente descripción del proyecto de investigación. Máximo 2-3 oraciones que expliquen el objetivo y los hallazgos principales.",
+    resumen: "Este proyecto de investigación, titulado Influencia de los juegos didácticos en el rendimiento escolar de los estudiantes de 1er año del Liceo Nacional Ángel María Duque, fue desarrollado en La Grita, Estado Táchira, por estudiantes de 5to año bajo la asesoría metodológica de la Lcda. Andreina Sánchez para el año escolar 2025-2026. Su objetivo principal fue determinar el impacto de las estrategias lúdicas en el rendimiento académico de los alumnos de primer año, buscando contrarrestar la apatía y el desinterés propios de los esquemas de enseñanza tradicionales durante la transición a la educación media. Bajo un enfoque cuantitativo y de campo con una muestra intencional de 45 estudiantes, se aplicaron técnicas de observación y evaluaciones mediante Pre-test y Post-test vinculadas a herramientas pedagógicas como sopas de letras, ruletas y crucigramas enfocados en operaciones y fracciones matemáticas. Los resultados revelaron un impacto significativamente positivo, donde el 48.9% de los alumnos mejoró su percepción sobre la utilidad de la asignatura y un alto porcentaje logró aclarar conceptos abstractos, permitiendo concluir que la metodología lúdica funciona como un catalizador clave para dinamizar el aprendizaje, elevar la motivación y optimizar el rendimiento escolar.",
     autores: ["Jean Natera","Jose Arellano","Marianyily Zambrano","Arianny Gandica","Yonalber Arellano","Thaidy Valderrama","Yendy Villalobos","Yeidy Villalobos"],
     mencion: "Humanidades",
     año: 2026,
     caratulaURL: process.env.PUBLIC_URL + "/Caratulas/C_ID8.png",
     portadaURL: process.env.PUBLIC_URL + "/Portadas/ID8.png",
-    videoURL: "https://www.youtube.com/embed/PGIFXHmw_js",
-    documentoURL: "#",
+    videoURL: process.env.PUBLIC_URL + "/Videos/V_ID08.mp4",
+    documentoURL: "process.env.PUBLIC_URL + /Proyectos/ProyectoID8.pdf",
     anexos: [{ titulo: "Tablas de Muestreo", url: "#" }]
   },
   {
     id: 9,
     titulo: "Vinculación de los espacios verdes al entorno educativo, por medio del reordenamiento",
-    resumen: "Pendiente descripción del proyecto de investigación. Máximo 2-3 oraciones que expliquen el objetivo y los hallazgos principales.",
+    resumen: "La presente investigación tuvo como objetivo general promover la vinculación de las áreas verdes al entorno educativo mediante el reordenamiento de espacios entre árboles frutales y ornamentales en el Liceo Nacional Ángel María Duque, ubicado en La Grita, estado Táchira. La metodología se inscribió en el paradigma pragmático con un enfoque mixto (cualitativo y cuantitativo), utilizando el método de Investigación-Acción Participativa (IAP), con un diseño de campo, descriptivo y transformador, permitiendo resolver problemas inmediatos del entorno escolar. La población estuvo conformada por 162 estudiantes de 5to año, de los cuales se tomó una muestra intencional de 15 de ellos para el componente cuantitativo. Como informantes clave para el área cualitativa, participaron dos docentes especialistas en Ciencias Sociales y Educación Física. Para la recolección de datos, se aplicaron dos técnicas: la encuesta y la entrevista semiestructurada, utilizando como instrumentos un cuestionario con 15 ítems en escala Likert y un guion de entrevista de 8 preguntas abiertas. Los resultados cuantitativos indicaron que, aunque el 80% de los estudiantes apoya el reordenamiento y reconoce el potencial educativo del espacio, existe una baja disposición (33%) para el mantenimiento manual voluntario. Los datos cualitativos confirmaron que los docentes valoran las áreas como aulas vivas para enseñar fotosíntesis y conciencia ambiental, pero advirtieron que los árboles han cumplido su vida útil y requieren renovación. Las conclusiones del estudio determinaron que la intervención física fue exitosa, logrando la restauración del sector noreste del plantel mediante desmalezamiento, pintura de bancos y señalización pedagógica. Se concluye que el éxito a largo plazo del proyecto depende de la institucionalización de las brigadas ecológicas y de la superación de la brecha entre la valoración del entorno y la acción participativa de los estudiantes, asegurando así que el liceo sea un modelo de sostenibilidad y aprendizaje vivencial en la región. ",
     autores: ["Santiago gauta", "José David Contreras", "Jarianny Contreras", "Diego Rodríguez", "Karibel Sánchez", "Vaiolet mora", "Angy Aguilar" ],
     mencion: "Humanidades",
     año: 2026,
     caratulaURL: process.env.PUBLIC_URL + "/Caratulas/C_ID9.png",
     portadaURL: process.env.PUBLIC_URL + "/Portadas/ID9.png",
-    videoURL: "https://www.youtube.com/embed/PGIFXHmw_js",
-    documentoURL: "#",
+    videoURL: process.env.PUBLIC_URL + "/Videos/V_ID09.mp4",
+    documentoURL: "process.env.PUBLIC_URL + /Proyectos/ProyectoID9.pdf",
     anexos: [{ titulo: "Tablas de Muestreo", url: "#" }]
   },
   {
@@ -151,7 +152,7 @@ const projectsData = [
     año: 2026,
     caratulaURL: process.env.PUBLIC_URL + "/Caratulas/C_ID10.png",
     portadaURL: process.env.PUBLIC_URL + "/Portadas/ID10.png",
-    videoURL: "https://www.youtube.com/embed/PGIFXHmw_js",
+    videoURL: process.env.PUBLIC_URL + "/Videos/V_ID10.mp4",
     documentoURL: process.env.PUBLIC_URL + "/Proyectos/ProyectoID10.pdf",
     anexos: [{ titulo: "Tablas de Muestreo", url: "#" }]
   },
@@ -164,20 +165,20 @@ const projectsData = [
     año: 2026,
     caratulaURL: process.env.PUBLIC_URL + "/Caratulas/C_ID11.png",
     portadaURL: process.env.PUBLIC_URL + "/Portadas/ID11.png",
-    videoURL: "https://www.youtube.com/embed/PGIFXHmw_js",
+    videoURL: process.env.PUBLIC_URL + "/Videos/V_ID11.mp4",
     documentoURL: process.env.PUBLIC_URL + "/Proyectos/ProyectoID11.pdf",
     anexos: [{ titulo: "Tablas de Muestreo", url: "#" }]
   },
    {
     id: 12,
-    titulo: "Sistema de riego por goteo",
-    resumen: "Pendiente descripción del proyecto de investigación. Máximo 2-3 oraciones que expliquen el objetivo y los hallazgos principales.",
+    titulo: "Donacion de Herramientas Para el Trabajo del Huerto Escolar Del Liceo Angel Maria Duque",
+    resumen: "El proyecto contempla la gestión y dotación de herramientas agrícolas esenciales para optimizar el funcionamiento del huerto escolar del Liceo Ángel María Duque, con el objetivo de transformar este espacio en un laboratorio pedagógico viviente y autosustentable. A través de un enfoque socio-productivo y comunitario, la iniciativa abarca desde el diagnóstico de las necesidades de equipamiento y la entrega formal de los insumos (como palas, escardillas y rastrillos), hasta la integración de la comunidad estudiantil en jornadas de trabajo de la tierra que fomenten la soberanía alimentaria y el sentido de pertenencia. Con esta dotación se espera mitigar el deterioro de las áreas productivas del plantel, mejorar significativamente la eficiencia del trabajo manual de los alumnos y consolidar un modelo educativo práctico que vincule las ciencias naturales con el desarrollo sustentable y el trabajo en equipo.",
     autores: ["Jeanderson Guerrero", "Eva Quintero", "Richart Vera", "Greison Beltran", "Barbara Montilva", "Eudymar Pérez" ],
     mencion: "Ciencias",
     año: 2026,
     caratulaURL: process.env.PUBLIC_URL + "/Caratulas/C_ID12.png",
     portadaURL: process.env.PUBLIC_URL + "/Portadas/ID12.png",
-    videoURL: "https://www.youtube.com/embed/PGIFXHmw_js",
+    videoURL: process.env.PUBLIC_URL + "/Videos/V_ID12.mp4",
     documentoURL: "#",
     anexos: [{ titulo: "Tablas de Muestreo", url: "#" }]
   },
@@ -190,21 +191,21 @@ const projectsData = [
     año: 2026,
     caratulaURL: process.env.PUBLIC_URL + "/Caratulas/C_ID13.png",
     portadaURL: process.env.PUBLIC_URL + "/Portadas/ID13.png",
-    videoURL: "https://www.youtube.com/embed/PGIFXHmw_js",
+    videoURL: process.env.PUBLIC_URL + "/Videos/V_ID13.mp4",
     documentoURL: "process.env.PUBLIC_URL + /Proyectos/ProyectoID13.pdf",
     anexos: [{ titulo: "Tablas de Muestreo", url: "#" }]
   },
   {
     id: 14,
     titulo: "Alfabetización digital para el uso responsable de la inteligencia artificial",
-    resumen: "Pendiente descripción del proyecto de investigación. Máximo 2-3 oraciones que expliquen el objetivo y los hallazgos principales.",
+    resumen: "El objetivo general de la investigación consiste en desarrollar una propuesta de alfabetización digital orientada al uso responsable de la Inteligencia Artificial. Metodológicamente, el estudio se enmarca en un enfoque cualitativo y sistemático, enfocado en la comprensión profunda de fenómenos socioeducativos mediante un diseño que contempla el diagnóstico de percepciones a través de entrevistas semiestructuradas y el análisis de contenido temático. En los resultados y la propuesta pedagógica, se constató que los estudiantes interactúan con la IA de forma empírica y meramente instrumental bajo un método de ensayo y error, evidenciando una brecha cognitiva en sus bases teóricas. Ante esto, se diseñó una guía práctica y flexible adaptada al contexto venezolano, que incorpora bitácoras de uso ético, un decálogo de responsabilidad y protocolos de verificación aplicados a limitaciones tecnológicas locales. Finalmente, las conclusiones y recomendaciones determinaron que los jóvenes poseen una alta vulnerabilidad ante sesgos y alucinaciones por su validación superficial en la web, devela la urgencia de un pensamiento crítico digital. Se recomienda a la institución formalizar dicha guía pedagógica dentro de sus planes de estudio, reformular los métodos de evaluación y promover comités de ética digital estudiantil. ",
     autores: ["Renzo Rojas","Diego Mendez","Brayan Camargo"],
     mencion: "Ciencias",
     año: 2026,
     caratulaURL: process.env.PUBLIC_URL + "/Caratulas/C_ID14.png",
     portadaURL: process.env.PUBLIC_URL + "/Portadas/ID14.png",
-    videoURL: "https://www.youtube.com/embed/PGIFXHmw_js",
-    documentoURL: "#",
+    videoURL: process.env.PUBLIC_URL + "/Videos/V_ID14.mp4",
+    documentoURL: "process.env.PUBLIC_URL + /Proyectos/ProyectoID14.pdf",
     anexos: [{ titulo: "Tablas de Muestreo", url: "#" }]
   },
   {
@@ -216,7 +217,7 @@ const projectsData = [
     año: 2026,
     caratulaURL: process.env.PUBLIC_URL + "/Caratulas/C_ID15.png",
     portadaURL: process.env.PUBLIC_URL + "/Portadas/ID15.png",
-    videoURL: "https://www.youtube.com/embed/PGIFXHmw_js",
+    videoURL: process.env.PUBLIC_URL + "/Videos/V_ID15.mp4",
     documentoURL: "process.env.PUBLIC_URL + /Proyectos/ProyectoID15.pdf",
     anexos: [{ titulo: "Tablas de Muestreo", url: "#" }]
   },{
@@ -228,7 +229,7 @@ const projectsData = [
     año: 2026,
     caratulaURL: process.env.PUBLIC_URL + "/Caratulas/C_ID16.png",
     portadaURL: process.env.PUBLIC_URL + "/Portadas/ID16.png",
-    videoURL: "https://www.youtube.com/embed/PGIFXHmw_js",
+    videoURL: process.env.PUBLIC_URL + "/Videos/V_ID16.mp4",
     documentoURL: "process.env.PUBLIC_URL + /Proyectos/ProyectoID16.pdf",
     anexos: [{ titulo: "Tablas de Muestreo", url: "#" }]
   },
@@ -241,7 +242,7 @@ const projectsData = [
     año: 2026,
     caratulaURL: process.env.PUBLIC_URL + "/Caratulas/C_ID17.png",
     portadaURL: process.env.PUBLIC_URL + "/Portadas/ID17.png",
-    videoURL: "https://www.youtube.com/embed/PGIFXHmw_js",
+    videoURL: process.env.PUBLIC_URL + "/Videos/V_ID17.mp4",
     documentoURL: "process.env.PUBLIC_URL + /Proyectos/ProyectoID17.pdf",
     anexos: [{ titulo: "Tablas de Muestreo", url: "#" }]
 },
@@ -254,7 +255,7 @@ const projectsData = [
     año: 2026,
     caratulaURL: process.env.PUBLIC_URL + "/Caratulas/C_ID18.png",
     portadaURL: process.env.PUBLIC_URL + "/Portadas/ID18.png",
-    videoURL: "https://www.youtube.com/embed/PGIFXHmw_js",
+    videoURL: process.env.PUBLIC_URL + "/Videos/V_ID18.mp4",
     documentoURL: "process.env.PUBLIC_URL + /Proyectos/ProyectoID18.pdf",
     anexos: [{ titulo: "Tablas de Muestreo", url: "#" }]
 },
@@ -267,7 +268,7 @@ const projectsData = [
     año: 2026,
     caratulaURL: process.env.PUBLIC_URL + "/Caratulas/C_ID19.png",
     portadaURL: process.env.PUBLIC_URL + "/Portadas/ID19.png",
-    videoURL: "https://www.youtube.com/embed/PGIFXHmw_js",
+    videoURL: process.env.PUBLIC_URL + "/Videos/V_ID19.mp4",
     documentoURL: "process.env.PUBLIC_URL + /Proyectos/ProyectoID19.pdf",
     anexos: [{ titulo: "Tablas de Muestreo", url: "#" }]
   },
@@ -279,9 +280,9 @@ const projectsData = [
     mencion: "Ciencias",
     año: 2026,
     caratulaURL: process.env.PUBLIC_URL + "/Caratulas/C_ID20.png",
-    portadaURL: process.env.PUBLIC_URL + "/Portadas/ID20.png",
-    videoURL: "https://www.youtube.com/embed/PGIFXHmw_js",
-    documentoURL: "process.env.PUBLIC_URL + /Proyectos/ProyectoID20.pdf",
+    portadaURL: process.env.PUBLIC_URL + "/Caratulas/C_ID20.png",
+    videoURL: "",
+    documentoURL: "#",
     anexos: [{ titulo: "Tablas de Muestreo", url: "#" }]
   }, 
   {
@@ -293,7 +294,7 @@ const projectsData = [
     año: 2026,
     caratulaURL: process.env.PUBLIC_URL + "/Caratulas/C_ID21.png",
     portadaURL: process.env.PUBLIC_URL + "/Portadas/ID21.png",
-    videoURL: "https://www.youtube.com/embed/PGIFXHmw_js",
+    videoURL: process.env.PUBLIC_URL + "/Videos/V_ID21.mp4",
     documentoURL: "process.env.PUBLIC_URL + /Proyectos/ProyectoID21.pdf",
     anexos: [{ titulo: "Tablas de Muestreo", url: "#" }]                                      
   },
@@ -306,7 +307,7 @@ const projectsData = [
     año: 2026,
     caratulaURL: process.env.PUBLIC_URL + "/Caratulas/C_ID22.png",
     portadaURL: process.env.PUBLIC_URL + "/Portadas/ID22.png",
-    videoURL: "https://www.youtube.com/embed/PGIFXHmw_js",
+    videoURL: process.env.PUBLIC_URL + "/Videos/V_ID22.mp4",
     documentoURL: "process.env.PUBLIC_URL + /Proyectos/ProyectoID22.pdf",
     anexos: [{ titulo: "Tablas de Muestreo", url: "#" }]
   }

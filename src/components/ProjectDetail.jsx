@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Users, Calendar, FlaskConical, BookOpen, ExternalLink, X } from 'lucide-react';
+import { ArrowLeft, Users, Calendar, FlaskConical, BookOpen, ExternalLink, Play, X } from 'lucide-react';
 import { Document, Page } from 'react-pdf';
 import { GlobalWorkerOptions } from 'pdfjs-dist/build/pdf.mjs';
 import Navbar from './Navbar';
@@ -33,11 +33,22 @@ export default function ProjectDetail() {
     const { id } = useParams();
     const navigate = useNavigate();
     const [showModal, setShowModal] = useState(false);
+    const [showVideo, setShowVideo] = useState(false);
     const [numPages, setNumPages] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const [pageWidth, setPageWidth] = useState(0);
     const modalRef = useRef(null);
     const project = projectsData.find((p) => p.id === parseInt(id));
+
+    const isYoutubeVideo = project?.videoURL?.includes('youtube.com') || project?.videoURL?.includes('youtu.be');
+    const getVideoSrc = (url) => {
+        if (!url) return '';
+        if (isYoutubeVideo) {
+            const params = ['rel=0', 'modestbranding=1', 'controls=1', 'autoplay=1'];
+            return url.includes('?') ? `${url}&${params.join('&')}` : `${url}?${params.join('&')}`;
+        }
+        return url;
+    };
 
     const documentoViewURL = project?.documentoURL && project.documentoURL !== '#'
         ? project.documentoURL
@@ -243,13 +254,47 @@ export default function ProjectDetail() {
                             <h2 className="text-white text-lg font-bold tracking-[0.15em] uppercase">Material Audiovisual</h2>
                         </div>
                         <div className="relative w-full aspect-video rounded-sm overflow-hidden border border-white/10 shadow-[0_0_20px_rgba(0,229,255,0.05)]">
-                            <iframe
-                                src={project.videoURL}
-                                title={`Video de ${project.titulo}`}
-                                className="w-full h-full"
-                                allowFullScreen
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            ></iframe>
+                            {!showVideo ? (
+                                <button
+                                    type="button"
+                                    onClick={() => setShowVideo(true)}
+                                    onContextMenu={(event) => event.preventDefault()}
+                                    className="relative w-full h-full overflow-hidden"
+                                >
+                                    <img
+                                        src={project.portadaURL || project.caratulaURL}
+                                        alt={`Miniatura de ${project.titulo}`}
+                                        className="w-full h-full object-cover"
+                                    />
+                                    <div className="absolute inset-0 bg-black/40" />
+                                    <div className="absolute inset-0 flex items-center justify-center">
+                                        <div className="flex items-center justify-center w-20 h-20 rounded-full bg-white/10 border border-white/30 transition hover:bg-white/20">
+                                            <Play size={28} className="text-white" />
+                                        </div>
+                                    </div>
+                                </button>
+                            ) : isYoutubeVideo ? (
+                                <iframe
+                                    src={getVideoSrc(project.videoURL)}
+                                    title={`Video de ${project.titulo}`}
+                                    className="w-full h-full"
+                                    allowFullScreen
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                ></iframe>
+                            ) : (
+                                <video
+                                    src={getVideoSrc(project.videoURL)}
+                                    controls
+                                    autoPlay
+                                    playsInline
+                                    controlsList="nodownload nofullscreen noremoteplayback"
+                                    disablePictureInPicture
+                                    disableRemotePlayback
+                                    className="w-full h-full bg-black"
+                                    poster={project.portadaURL || project.caratulaURL}
+                                    onContextMenu={(event) => event.preventDefault()}
+                                />
+                            )}
                         </div>
                     </motion.section>
                 )}

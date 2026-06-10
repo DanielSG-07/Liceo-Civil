@@ -19,6 +19,7 @@ export default function Index() {
     const yearsData = [...new Set(projectsData.map(p => p.año))].sort((a, b) => a - b);
     // Seleccionar el índice del último año por defecto
     const [activeYearIndex, setActiveYearIndex] = useState(yearsData.length > 0 ? yearsData.length - 1 : 0);
+    const [searchQuery, setSearchQuery] = useState('');
 
     const particlesInit = async (engine) => {
         await loadSlim(engine);
@@ -58,6 +59,12 @@ export default function Index() {
     // Obtener los proyectos del año activo
     const currentYear = yearsData[activeYearIndex] || new Date().getFullYear();
     const activeProjects = projectsData.filter(p => p.año === currentYear && p.id !== 1);
+    const normalizedSearch = searchQuery.trim().toLowerCase();
+    const filteredActiveProjects = activeProjects.filter((project) => {
+        if (!normalizedSearch) return true;
+        const haystack = `${project.titulo} ${project.resumen} ${project.autores.join(' ')} ${project.mencion} ${project.año}`.toLowerCase();
+        return haystack.includes(normalizedSearch);
+    });
     const activeColor = yearColors[activeYearIndex % yearColors.length] || yearColors[0];
 
     // ─── Empty state cuando no hay proyectos ────────────────────────────────
@@ -94,44 +101,50 @@ export default function Index() {
             </div>
 
             {/* ── Navbar reutilizable ── */}
-            <Navbar />
+            <Navbar searchQuery={searchQuery} onSearchChange={setSearchQuery} />
 
             <main className="relative z-10 flex-1 flex flex-col items-center justify-center w-full max-w-7xl mx-auto px-4">
                 <div className="w-full h-full flex flex-col items-center justify-center relative -mt-10">
 
                     {/* ── Carrusel 3D — mapeado desde projectsData ── */}
-                    <Swiper
-                        effect={'coverflow'}
-                        grabCursor={true}
-                        centeredSlides={true}
-                        loop={true}
-                        breakpoints={{
-                            320: {
-                                slidesPerView: 1.2,
-                                spaceBetween: -20
-                            },
-                            768: {
-                                slidesPerView: 2,
-                                spaceBetween: -30
-                            },
-                            1024: {
-                                slidesPerView: 3,
-                                spaceBetween: -50
-                            }
-                        }}
-                        coverflowEffect={{
-                            rotate: 35,
-                            stretch: 20,
-                            depth: 400,
-                            modifier: 1.2,
-                            slideShadows: true,
-                        }}
-                        modules={[EffectCoverflow, Pagination]}
-                        className="w-full max-w-[1400px] pb-10"
-                    >
-                        {activeProjects.map((project) => (
-                            <SwiperSlide key={project.id} className="w-[300px] sm:w-[380px] md:w-[480px] h-[480px] sm:h-[550px] md:h-[650px] flex items-center justify-center">
-                                <Link to={`/proyectos/${project.id}`} className="w-[85%] h-[90%] block">
+                        {filteredActiveProjects.length === 0 ? (
+                            <div className="w-full py-20 text-center text-white/80">
+                                <p className="text-lg font-semibold">No se encontraron proyectos para esta búsqueda.</p>
+                                <p className="text-sm text-gray-400 mt-2">Intenta cambiar el término de búsqueda o selecciona otro año.</p>
+                            </div>
+                        ) : (
+                            <Swiper
+                                effect={'coverflow'}
+                                grabCursor={true}
+                                centeredSlides={true}
+                                loop={true}
+                                breakpoints={{
+                                    320: {
+                                        slidesPerView: 1.2,
+                                        spaceBetween: -20
+                                    },
+                                    768: {
+                                        slidesPerView: 2,
+                                        spaceBetween: -30
+                                    },
+                                    1024: {
+                                        slidesPerView: 3,
+                                        spaceBetween: -50
+                                    }
+                                }}
+                                coverflowEffect={{
+                                    rotate: 35,
+                                    stretch: 20,
+                                    depth: 400,
+                                    modifier: 1.2,
+                                    slideShadows: true,
+                                }}
+                                modules={[EffectCoverflow, Pagination]}
+                                className="w-full max-w-[1400px] pb-10"
+                            >
+                                {filteredActiveProjects.map((project) => (
+                                    <SwiperSlide key={project.id} className="w-[300px] sm:w-[380px] md:w-[480px] h-[480px] sm:h-[550px] md:h-[650px] flex items-center justify-center">
+                                        <Link to={`/proyectos/${project.id}`} className="w-[85%] h-[90%] block">
                                     <motion.div
                                         whileHover={{ scale: 1.05, rotateX: 2, rotateY: -2, boxShadow: "0 0 40px rgba(0, 229, 255, 0.4)" }}
                                         transition={{ type: "spring", stiffness: 200, damping: 20 }}
@@ -153,6 +166,7 @@ export default function Index() {
                             </SwiperSlide>
                         ))}
                     </Swiper>
+                        )}
 
                     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5, duration: 0.5 }} className="mt-6 z-30 relative">
                         <Link to="/proyectos" className="group relative flex items-center justify-center gap-2 text-magazine-cyan font-bold tracking-[0.2em] text-sm transition-all hover:text-white px-8 py-3 outline-none">
