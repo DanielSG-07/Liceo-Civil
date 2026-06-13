@@ -101,7 +101,7 @@ const projectsData = [
     caratulaURL: process.env.PUBLIC_URL + "/Caratulas/C_ID6.png",
     portadaURL: process.env.PUBLIC_URL + "/Portadas/ID6.png",
     videoURL: process.env.PUBLIC_URL + "/Videos/V_ID06.mp4",
-    documentoURL: "process.env.PUBLIC_URL + /Proyectos/ProyectoID6.pdf",
+    documentoURL: process.env.PUBLIC_URL + "/Proyectos/ProyectoID6.pdf",
     anexos: [{ titulo: "Tablas de Muestreo", url: "#" }]
   },
   {
@@ -114,7 +114,7 @@ const projectsData = [
     caratulaURL: process.env.PUBLIC_URL + "/Caratulas/C_ID7.png",
     portadaURL: process.env.PUBLIC_URL + "/Portadas/ID7.png",
     videoURL: process.env.PUBLIC_URL + "/Videos/V_ID07.mp4",
-    documentoURL: "process.env.PUBLIC_URL + /Proyectos/ProyectoID7.pdf",
+    documentoURL: process.env.PUBLIC_URL + "/Proyectos/ProyectoID7.pdf",
     anexos: [{ titulo: "Tablas de Muestreo", url: "#" }]
   },
   {
@@ -127,7 +127,7 @@ const projectsData = [
     caratulaURL: process.env.PUBLIC_URL + "/Caratulas/C_ID8.png",
     portadaURL: process.env.PUBLIC_URL + "/Portadas/ID8.png",
     videoURL: process.env.PUBLIC_URL + "/Videos/V_ID08.mp4",
-    documentoURL: "process.env.PUBLIC_URL + /Proyectos/ProyectoID8.pdf",
+    documentoURL: process.env.PUBLIC_URL + "/Proyectos/ProyectoID8.pdf",
     anexos: [{ titulo: "Tablas de Muestreo", url: "#" }]
   },
   {
@@ -140,7 +140,7 @@ const projectsData = [
     caratulaURL: process.env.PUBLIC_URL + "/Caratulas/C_ID9.png",
     portadaURL: process.env.PUBLIC_URL + "/Portadas/ID9.png",
     videoURL: process.env.PUBLIC_URL + "/Videos/V_ID09.mp4",
-    documentoURL: "process.env.PUBLIC_URL + /Proyectos/ProyectoID9.pdf",
+    documentoURL: process.env.PUBLIC_URL + "/Proyectos/ProyectoID9.pdf",
     anexos: [{ titulo: "Tablas de Muestreo", url: "#" }]
   },
   {
@@ -192,7 +192,7 @@ const projectsData = [
     caratulaURL: process.env.PUBLIC_URL + "/Caratulas/C_ID13.png",
     portadaURL: process.env.PUBLIC_URL + "/Portadas/ID13.png",
     videoURL: process.env.PUBLIC_URL + "/Videos/V_ID13.mp4",
-    documentoURL: "process.env.PUBLIC_URL + /Proyectos/ProyectoID13.pdf",
+    documentoURL: process.env.PUBLIC_URL + "/Proyectos/ProyectoID13.pdf",
     anexos: [{ titulo: "Tablas de Muestreo", url: "#" }]
   },
   {
@@ -205,7 +205,7 @@ const projectsData = [
     caratulaURL: process.env.PUBLIC_URL + "/Caratulas/C_ID14.png",
     portadaURL: process.env.PUBLIC_URL + "/Portadas/ID14.png",
     videoURL: process.env.PUBLIC_URL + "/Videos/V_ID14.mp4",
-    documentoURL: "process.env.PUBLIC_URL + /Proyectos/ProyectoID14.pdf",
+    documentoURL: process.env.PUBLIC_URL + "/Proyectos/ProyectoID14.pdf",
     anexos: [{ titulo: "Tablas de Muestreo", url: "#" }]
   },
   {
@@ -218,7 +218,7 @@ const projectsData = [
     caratulaURL: process.env.PUBLIC_URL + "/Caratulas/C_ID15.png",
     portadaURL: process.env.PUBLIC_URL + "/Portadas/ID15.png",
     videoURL: process.env.PUBLIC_URL + "/Videos/V_ID15.mp4",
-    documentoURL: "process.env.PUBLIC_URL + /Proyectos/ProyectoID15.pdf",
+    documentoURL: process.env.PUBLIC_URL + "/Proyectos/ProyectoID15.pdf",
     anexos: [{ titulo: "Tablas de Muestreo", url: "#" }]
   },{
     id: 16,
@@ -230,7 +230,7 @@ const projectsData = [
     caratulaURL: process.env.PUBLIC_URL + "/Caratulas/C_ID16.png",
     portadaURL: process.env.PUBLIC_URL + "/Portadas/ID16.png",
     videoURL: process.env.PUBLIC_URL + "/Videos/V_ID16.mp4",
-    documentoURL: "process.env.PUBLIC_URL + /Proyectos/ProyectoID16.pdf",
+    documentoURL: process.env.PUBLIC_URL + "/Proyectos/ProyectoID16.pdf",
     anexos: [{ titulo: "Tablas de Muestreo", url: "#" }]
   },
 {
@@ -243,7 +243,7 @@ const projectsData = [
     caratulaURL: process.env.PUBLIC_URL + "/Caratulas/C_ID17.png",
     portadaURL: process.env.PUBLIC_URL + "/Portadas/ID17.png",
     videoURL: process.env.PUBLIC_URL + "/Videos/V_ID17.mp4",
-    documentoURL: "process.env.PUBLIC_URL + /Proyectos/ProyectoID17.pdf",
+    documentoURL: process.env.PUBLIC_URL + "/Proyectos/ProyectoID17.pdf",
     anexos: [{ titulo: "Tablas de Muestreo", url: "#" }]
 },
 {
@@ -256,7 +256,7 @@ const projectsData = [
     caratulaURL: process.env.PUBLIC_URL + "/Caratulas/C_ID18.png",
     portadaURL: process.env.PUBLIC_URL + "/Portadas/ID18.png",
     videoURL: process.env.PUBLIC_URL + "/Videos/V_ID18.mp4",
-    documentoURL: "process.env.PUBLIC_URL + /Proyectos/ProyectoID18.pdf",
+    documentoURL: process.env.PUBLIC_URL + "/Proyectos/ProyectoID18.pdf",
     anexos: [{ titulo: "Tablas de Muestreo", url: "#" }]
 },
 {
@@ -269,7 +269,7 @@ const projectsData = [
     caratulaURL: process.env.PUBLIC_URL + "/Caratulas/C_ID19.png",
     portadaURL: process.env.PUBLIC_URL + "/Portadas/ID19.png",
     videoURL: process.env.PUBLIC_URL + "/Videos/V_ID19.mp4",
-    documentoURL: "process.env.PUBLIC_URL + /Proyectos/ProyectoID19.pdf",
+    documentoURL: process.env.PUBLIC_URL + "/Proyectos/ProyectoID19.pdf",
     anexos: [{ titulo: "Tablas de Muestreo", url: "#" }]
   },
   {
@@ -281,8 +281,8 @@ const projectsData = [
     año: 2026,
     caratulaURL: process.env.PUBLIC_URL + "/Caratulas/C_ID20.png",
     portadaURL: process.env.PUBLIC_URL + "/Caratulas/C_ID20.png",
-    videoURL: "",
-    documentoURL: "#",
+    videoURL: process.env.PUBLIC_URL + "/Videos/V_ID20.mp4",
+    documentoURL: process.env.PUBLIC_URL + "/Proyectos/ProyectoID20.pdf",
     anexos: [{ titulo: "Tablas de Muestreo", url: "#" }]
   }, 
   {
@@ -295,7 +295,7 @@ const projectsData = [
     caratulaURL: process.env.PUBLIC_URL + "/Caratulas/C_ID21.png",
     portadaURL: process.env.PUBLIC_URL + "/Portadas/ID21.png",
     videoURL: process.env.PUBLIC_URL + "/Videos/V_ID21.mp4",
-    documentoURL: "process.env.PUBLIC_URL + /Proyectos/ProyectoID21.pdf",
+    documentoURL: process.env.PUBLIC_URL + "/Proyectos/ProyectoID21.pdf",
     anexos: [{ titulo: "Tablas de Muestreo", url: "#" }]                                      
   },
   {
@@ -308,7 +308,7 @@ const projectsData = [
     caratulaURL: process.env.PUBLIC_URL + "/Caratulas/C_ID22.png",
     portadaURL: process.env.PUBLIC_URL + "/Portadas/ID22.png",
     videoURL: process.env.PUBLIC_URL + "/Videos/V_ID22.mp4",
-    documentoURL: "process.env.PUBLIC_URL + /Proyectos/ProyectoID22.pdf",
+    documentoURL: process.env.PUBLIC_URL + "/Proyectos/ProyectoID22.pdf",
     anexos: [{ titulo: "Tablas de Muestreo", url: "#" }]
   }
 ];
